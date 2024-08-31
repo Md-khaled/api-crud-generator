@@ -1,0 +1,41 @@
+<?php
+
+namespace {{namespace}};
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use {{namespace}}\{{modelName}};
+use {{namespace}}\Http\Requests\{{modelName}}Request;
+use {{namespace}}\Http\Resources\{{modelName}}Resource;
+
+class {{modelName}}Controller extends Controller
+{
+    public function index()
+    {
+        $models = {{modelName}}::all();
+        return {{modelName}}Resource::collection($models);
+    }
+
+    public function store({{modelName}}Request $request)
+    {
+        $model = {{modelName}}::create($request->validated());
+        return new {{modelName}}Resource($model);
+    }
+
+    public function show({{modelName}} $model)
+    {
+        return new {{modelName}}Resource($model);
+    }
+
+    public function update({{modelName}}Request $request, {{modelName}} $model)
+    {
+        $model->update($request->validated());
+        return new {{modelName}}Resource($model);
+    }
+
+    public function destroy({{modelName}} $model)
+    {
+        $model->delete();
+        return response()->noContent();
+    }
+}

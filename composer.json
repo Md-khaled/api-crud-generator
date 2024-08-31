@@ -1,0 +1,22 @@
+{
+    "name": "khaled/api-crud-generator",
+    "autoload": {
+        "psr-4": {
+            "Khaled\\ApiCrudGenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khaled",
+            "email": "ujjalbhuiyan123@gmail.com"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Khaled\\ApiCrudGenerator\\Providers\\ApiCrudGeneratorServiceProvider"
+            ]
+        }
+    }
+}
