@@ -19,8 +19,8 @@ class CrudGeneratorService
             CrudGeneratorConstants::MODEL_NAME_PLACEHOLDER => $name,
             CrudGeneratorConstants::FILLABLE_FIELDS_PLACEHOLDER => $fillableFields
         ]);
-
         CrudHelper::writeFile("$path/{$name}.php", $modelContent);
+        dd("$path/{$name}.php", $modelContent);
     }
 
     public function generateController($name)
@@ -98,6 +98,7 @@ class CrudGeneratorService
             CrudGeneratorConstants::ROUTE_NAME_PLACEHOLDER => strtolower(Str::plural($name)),
             CrudGeneratorConstants::ROUTE_CONTROLLER_PLACEHOLDER => $controllerName
         ]);
+        dd($routesContent);
 
         file_put_contents($routesPath, $routesContent, FILE_APPEND);
     }

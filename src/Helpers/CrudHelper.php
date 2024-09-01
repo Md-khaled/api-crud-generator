@@ -2,6 +2,7 @@
 
 namespace Khaled\ApiCrudGenerator\Helpers;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Khaled\ApiCrudGenerator\Constants\CrudGeneratorConstants;
 
@@ -13,6 +14,10 @@ class CrudHelper
      * @param string $key
      * @return string
      */
+    public function __construct(Filesystem $files)
+    {
+
+    }
     public static function getNamespace($key)
     {
         return config($key);
@@ -38,7 +43,12 @@ class CrudHelper
      */
     public static function getStubContent($stubName, $replacements = [])
     {
-        $stubPath = __DIR__ . "/../Stubs/{$stubName}.stub";
+        // Construct the path to the stub file dynamically
+        $stubPath = __DIR__ . '/../Stubs/' . $stubName . '.stub';
+
+        if (!file_exists($stubPath)) {
+            throw new \Exception("Stub file not found at: " . $stubPath);
+        }
         $stubContent = file_get_contents($stubPath);
 
         foreach ($replacements as $placeholder => $replacement) {
@@ -57,7 +67,19 @@ class CrudHelper
      */
     public static function writeFile($path, $content)
     {
+        if (!is_dir(dirname($path))) {
+            mkdir(dirname($path), 0755, true);
+        }
+
         file_put_contents($path, $content);
+    }
+    protected function makeDirectory(string $path): string
+    {
+        if (! $this->files->isDirectory(dirname($path))) {
+            $this->files->makeDirectory(dirname($path), 0777, true, true);
+        }
+
+        return $path;
     }
 
     /**

@@ -1,41 +1,40 @@
 <?php
 
-namespace {{namespace}};
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use {{namespace}}\{{modelName}};
-use {{namespace}}\Http\Requests\{{modelName}}Request;
-use {{namespace}}\Http\Resources\{{modelName}}Resource;
+use App\Models\{{modelName}};
+use App\Http\Requests\{{modelName}}Request;
+use Illuminate\Http\JsonResponse;
 
 class {{modelName}}Controller extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        $models = {{modelName}}::all();
-        return {{modelName}}Resource::collection($models);
+        return response()->json({{modelName}}::all());
     }
 
-    public function store({{modelName}}Request $request)
+    public function store({{modelName}}Request $request): JsonResponse
     {
-        $model = {{modelName}}::create($request->validated());
-        return new {{modelName}}Resource($model);
+        ${{modelVariable}} = {{modelName}}::create($request->validated());
+        return response()->json(${{modelVariable}}, 201);
     }
 
-    public function show({{modelName}} $model)
+    public function show($id): JsonResponse
     {
-        return new {{modelName}}Resource($model);
+        ${{modelVariable}} = {{modelName}}::findOrFail($id);
+        return response()->json(${{modelVariable}});
     }
 
-    public function update({{modelName}}Request $request, {{modelName}} $model)
+    public function update({{modelName}}Request $request, $id): JsonResponse
     {
-        $model->update($request->validated());
-        return new {{modelName}}Resource($model);
+        ${{modelVariable}} = {{modelName}}::findOrFail($id);
+        ${{modelVariable}}->update($request->validated());
+        return response()->json(${{modelVariable}});
     }
 
-    public function destroy({{modelName}} $model)
+    public function destroy($id): JsonResponse
     {
-        $model->delete();
-        return response()->noContent();
+        {{modelName}}::destroy($id);
+        return response()->json(null, 204);
     }
 }
