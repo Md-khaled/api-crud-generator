@@ -1,5 +1,5 @@
 {
-    "name": "khaled/api-crud-generator",
+    "name": "mkhaled-mu/api-crud-generator",
     "autoload": {
         "psr-4": {
             "Khaled\\ApiCrudGenerator\\": "src/"
@@ -11,7 +11,9 @@
             "email": "ujjalbhuiyan123@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=8.2"
+    },
     "extra": {
         "laravel": {
             "providers": [
