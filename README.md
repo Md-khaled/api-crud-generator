@@ -23,6 +23,8 @@
 Use Composer to install the package:
 
 ```bash
-composer require khaled/api-crud-generator
+composer require mkhaled-mu/api-crud-generator
 
-php artisan make:crud Comment "comment:text,post_id:integer"
+php artisan make:crud name
+e.g
+php artisan make:crud Comment 
